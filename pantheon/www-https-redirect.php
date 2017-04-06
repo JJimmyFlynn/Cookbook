@@ -2,7 +2,7 @@
 
 /**
  * Use this snippet at the top of the wp-config file to
- * redirect all incoming request to the https + www
+ * redirect all incoming requests to the https + www
  * version of the site. Becasue we check the
  * site with '!=' this will redirect any
  * aliases set in Pantheon, as well
