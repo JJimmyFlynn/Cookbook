@@ -12,6 +12,7 @@ if ($config == FALSE) {
   die('files/private/cloudflare_cache.json not found. Aborting!');
 }
 
+// Go, Go Gadget Purge!
 purge_cache($config);
 
 /**
@@ -31,7 +32,7 @@ function purge_cache($config) {
     'Content-Type: application/json'
   ));
   curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-  // Go, Go Gadget Purge!
+  // Send cURL request
   print("\n==== Sending Request to Cloudflare ====\n");
   $result = curl_exec($ch);
   print("RESULT: $result");
