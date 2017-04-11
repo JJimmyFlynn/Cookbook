@@ -12,8 +12,6 @@ This Quicksilver script will purge the Cloudflare cache when your live environme
   - More info on `pantheon.yml` found [here](https://pantheon.io/docs/pantheon-yml/)
 - Deploy through to the live environment and clear the cache!
 
-Optionally, you may want to use the `terminus workflows watch` command to get immediate debugging feedback.
-
 ### Example `pantheon.yml` ###
 
 Here's an example of what your `pantheon.yml` would look like if this were the only Quicksilver operation you wanted to use:
