@@ -7,14 +7,14 @@
  */
 
  function post_type_change_title_text( $title ){
-     $screen = get_current_screen();
+    $screen = get_current_screen();
       
      // Edit here!
-     if  ( 'post_type' == $screen->post_type ) {
-          $title = 'Product Title';
-     }
+    if  ( 'post_type' == $screen->post_type ) {
+      $title = 'Product Title';
+    }
  
-     return $title;
+    return $title;
 }
  
 add_filter( 'enter_title_here', 'post_type_change_title_text' );
