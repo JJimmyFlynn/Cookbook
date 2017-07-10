@@ -49,9 +49,9 @@ if ( !post_type_exists('new_type') ) {
           'not_found_in_trash' => 'No ' . $label_plural . ' Found in Trash',
           'parent'             => 'Parent ' . $label_singular,
           'featured_image'     => $label_singular . ' Image',
-          'set_featured_image' => 'Set ' . $label_singular . 'Image',
-          'remove_featured_image' => 'Remove ' . $label_singular . 'Image',
-          'use_featured_image' => 'Use as ' . $label_singular . 'Image'
+          'set_featured_image' => 'Set ' . $label_singular . ' Image',
+          'remove_featured_image' => 'Remove ' . $label_singular . ' Image',
+          'use_featured_image' => 'Use as ' . $label_singular . ' Image'
         )
       )
     );
