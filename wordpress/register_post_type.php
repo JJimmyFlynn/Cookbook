@@ -5,13 +5,13 @@
  */
 
 if ( !post_type_exists('new_type') ) {
-  function register_ingredient_type() {
+  function register_new_post_type() {
     // Edit these!
     $label_singular = 'New Type';
     $label_plural   = 'New Types';
 
     register_post_type(
-      'ingredients',
+      'new_post_type',
       array(
         'label'           => $label_plural,
         'description'     => '',
@@ -56,5 +56,5 @@ if ( !post_type_exists('new_type') ) {
       )
     );
   }
-  add_action('init', 'register_ingredient_type');
+  add_action('init', 'register_new_post_type');
 }
