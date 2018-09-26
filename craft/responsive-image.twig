@@ -47,9 +47,9 @@
 {% endif %}
 
 {# Set aspect ratio for image wrapper padding #}
-{% set aspect_ratio = (image.height / image.width) * 100) %}
+{% set aspectRatio = (image.height / image.width) * 100) %}
 
-<div class="image-wrapper js-image" style="padding-top: {{ aspect_ratio }}%;">
+<div class="image-wrapper js-image" style="padding-top: {{ aspectRatio }}%;">
   <picture>
     {% if craft.imager.serverSupportsWebP() %}
       <source data-sizes="auto" data-srcset="{{ craft.imager.srcset(transformedWebpImages) }}" type="image/webp">
