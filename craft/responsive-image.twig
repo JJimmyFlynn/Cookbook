@@ -78,15 +78,15 @@
 {% set imageWrapperClasses = imageWrapperClasses is defined and imageWrapperClasses ? imageWrapperClasses : '' %}
 
 {% spaceless %}
-    <div class="responsiveImageWrapper {{ imageWrapperClasses }}" style="max-width: {{ maxWidth }}px">
-        <figure class="responsiveImage" style="padding-bottom: {{ aspectRatioString }}">
+    <div class="responsive-image-wrapper {{ imageWrapperClasses }}" style="max-width: {{ maxWidth }}px">
+        <figure class="responsive-image" style="padding-bottom: {{ aspectRatioString }}">
             <picture>
                 {% if craft.imager.serverSupportsWebP() %}
                     <source data-sizes="auto" data-srcset="{{ craft.imager.srcset(transformedWebpImages) }}" type="image/webp">
                 {% endif %}
 
                 <img
-                class="responsiveImage__image lazyload is-lazyloaded {{ imageClasses }}"
+                class="responsive-image__image lazyload is-lazyloaded {{ imageClasses }}"
                 src="{{ transformedImages[0].url }}"
                 data-srcset="{{ craft.imager.srcset(transformedImages) }}"
                 data-sizes="auto"
@@ -94,9 +94,9 @@
                 >
             </picture>
         </figure>
-        {# /.responsiveImage #}
+        {# /.responsive-image #}
     </div>
-    {# /.responsiveImageWrapper #}
+    {# /.responsive-image-wrapper #}
     
   <noscript>
     <img src="{{ transformedImages[0].url }}" alt="{{ image.title }}">
