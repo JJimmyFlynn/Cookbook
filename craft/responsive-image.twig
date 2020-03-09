@@ -1,71 +1,104 @@
 {# ------------------------------------------------------------------------------
-	A partial for including a lazyloaded responsive image. Assumes lazysizes.js
-	is being used. Also assumes the Craft plugin Imager is in use.
+    Generates a responsive image set which is used with lazy sizes
+    to render the image. Generates JPG and WebP (if capable).
 
-	Parameters:
-		- image {Image Object}
+
+  Parameters:
+    - image {image object} The Craft image object
+    - customSizes {array} (optional) Custom defined set of sizes to generate
+    - customAspect {String} (optional) Pass in a custom aspect ration, useful when cropping
+    - imageClasses {string} (optional) Additional classes for the image element
+    - imageWrapperClasses {string} (optional) Additional classes for the wrapper element
 ------------------------------------------------------------------------------ #}
 
-{% set transformedImages = craft.imager.transformImage(image, [
-  { width: 250 },
-  { width: 350 },
-  { width: 500 },
-  { width: 800 },
-  { width: 1000 },
-  { width: 1200 },
-  { width: 1400 },
-  { width: 1600 },
-  { width: 1800 },
-  { width: 2000 }
-],
-{
-  allowUpscale: false,
-  format: 'jpg',
-  jpegQuality: 80
-}
-) %}
+{% if customSizes is defined and customSizes %}
+    {% set transformedImages = craft.imager.transformImage(image, customSizes,
+        {
+            allowUpscale: false,
+            format: 'jpg',
+            jpegQuality: 80
+        }) %}
 
-{% if craft.imager.serverSupportsWebp() %}
-  {% set transformedWebpImages = craft.imager.transformImage(image, [
-  { width: 250 },
-  { width: 350 },
-  { width: 500 },
-  { width: 800 },
-  { width: 1000 },
-  { width: 1200 },
-  { width: 1400 },
-  { width: 1600 },
-  { width: 1800 },
-  { width: 2000 }
-],
-{
-  allowUpscale: false,
-  format: 'webp',
-  webpQuality: 80
-}
-) %}
+    {% if craft.imager.serverSupportsWebp() %}
+        {% set transformedWebpImages = craft.imager.transformImage(image, customSizes,
+        {
+            allowUpscale: false,
+            format: 'webp',
+            webpQuality: 80
+        }) %}
+    {% endif %}
+
+{% else %}
+    {# ------------------------------------------------------------------------------
+      Default Size Settings
+    ------------------------------------------------------------------------------ #}
+    {% set transformedImages = craft.imager.transformImage(image, [
+    { width: 250 },
+    { width: 350 },
+    { width: 500 },
+    { width: 800 },
+    { width: 1000 }
+    ],
+    {
+        allowUpscale: false,
+        format: 'jpg',
+        jpegQuality: 80
+    }) %}
+
+    {% if craft.imager.serverSupportsWebp() %}
+        {% set transformedWebpImages = craft.imager.transformImage(image, [
+        { width: 250 },
+        { width: 350 },
+        { width: 500 },
+        { width: 800 },
+        { width: 1000 }
+        ],
+        {
+            allowUpscale: false,
+            format: 'webp',
+            webpQuality: 80
+        }) %}
+    {% endif %}
 {% endif %}
 
 {# Set aspect ratio for image wrapper padding #}
-{% set aspectRatio = (image.height / image.width) * 100) %}
+{% if customAspect is defined and customAspect %}
+    {% set aspectRatio = customAspect %}
+    {% else %}
+        {% set aspectRatio = (image.height / image.width) %}
+{% endif %}
 
-<div class="image-wrapper js-image" style="padding-top: {{ aspectRatio }}%;">
-  <picture>
-    {% if craft.imager.serverSupportsWebP() %}
-      <source data-sizes="auto" data-srcset="{{ craft.imager.srcset(transformedWebpImages) }}" type="image/webp">
-    {% endif %}
+{# Set aspect ratio to a string with percentage for css #}
+{% set aspectRatioString = aspectRatio * 100 ~ '%' %}
 
-    <img
-      class="lazyload is-lazyloaded"
-      src="{{ transformedWebpImages[2].url }}"
-      data-srcset="{{ craft.imager.srcset(transformedImages) }}"
-      data-sizes="auto"
-      alt="{{ image.title }}"
-    >
+{% set maxWidth = image.width %}
+{% set maxHeight = image.height %}
 
-  </picture>
-</div>
+{% set imageClasses = imageClasses is defined and imageClasses ? imageClasses : '' %}
+{% set imageWrapperClasses = imageWrapperClasses is defined and imageWrapperClasses ? imageWrapperClasses : '' %}
 
-<noscript>
-  <img src="{{ transformedImages[2].url }}" alt="{{ image.title }}">
-</noscript>
+{% spaceless %}
+    <div class="responsiveImageWrapper {{ imageWrapperClasses }}" style="max-width: {{ maxWidth }}px">
+        <figure class="responsiveImage" style="padding-bottom: {{ aspectRatioString }}">
+            <picture>
+                {% if craft.imager.serverSupportsWebP() %}
+                    <source data-sizes="auto" data-srcset="{{ craft.imager.srcset(transformedWebpImages) }}" type="image/webp">
+                {% endif %}
+
+                <img
+                class="responsiveImage__image lazyload is-lazyloaded {{ imageClasses }}"
+                src="{{ transformedImages[0].url }}"
+                data-srcset="{{ craft.imager.srcset(transformedImages) }}"
+                data-sizes="auto"
+                alt="{{ image.title }}"
+                >
+            </picture>
+        </figure>
+        {# /.responsiveImage #}
+    </div>
+    {# /.responsiveImageWrapper #}
+    
+  <noscript>
+    <img src="{{ transformedImages[0].url }}" alt="{{ image.title }}">
+  </noscript>
+{% endspaceless %}
