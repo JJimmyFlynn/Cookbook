@@ -1,0 +1,83 @@
+# ------------------------------------------------------------------------------
+    Generates a responsive background image set which is used with lazy sizes
+    to render the image. Generates JPG and WebP (if capable).
+
+
+  Parameters:
+    - image {image object} The Craft image object
+    - customSizes {array} (optional) Custom defined set of sizes to generate
+------------------------------------------------------------------------------ #}
+
+{% if customSizes is defined and customSizes %}
+    {% set transformedImages = craft.imager.transformImage(image, customSizes,
+        {
+            allowUpscale: false,
+            format: 'jpg',
+            jpegQuality: 80
+        }) %}
+
+    {% if craft.imager.serverSupportsWebp() %}
+        {% set transformedWebpImages = craft.imager.transformImage(image, customSizes,
+        {
+            allowUpscale: false,
+            format: 'webp',
+            webpQuality: 80
+        }) %}
+    {% endif %}
+
+{% else %}
+    {# ------------------------------------------------------------------------------
+      Default Size Settings
+    ------------------------------------------------------------------------------ #}
+    {% set transformedImages = craft.imager.transformImage(image, [
+    { width: 250 },
+    { width: 350 },
+    { width: 500 },
+    { width: 800 },
+    { width: 1000 },
+    { width: 1400 },
+    { width: 1800 },
+    { width: 2000 }
+    ],
+    {
+        allowUpscale: false,
+        format: 'jpg',
+        jpegQuality: 80
+    }) %}
+
+    {% if craft.imager.serverSupportsWebp() %}
+        {% set transformedWebpImages = craft.imager.transformImage(image, [
+        { width: 250 },
+        { width: 350 },
+        { width: 500 },
+        { width: 800 },
+        { width: 1000 },
+        { width: 1400 },
+        { width: 1800 },
+        { width: 2000 }
+        ],
+        {
+            allowUpscale: false,
+            format: 'webp',
+            webpQuality: 80
+        }) %}
+    {% endif %}
+{% endif %}
+{% spaceless %}
+    <div class="responsive-bg-image">
+        <picture>
+            {% if craft.imager.serverSupportsWebP() %}
+                <source data-sizes="auto" data-srcset="{{ craft.imager.srcset(transformedWebpImages) }}" type="image/webp">
+            {% endif %}
+
+            <img
+            class="responsive-bg-image__image lazyload is-lazyloaded"
+            src="{{ transformedImages[0].url }}"
+            data-srcset="{{ craft.imager.srcset(transformedImages) }}"
+            data-sizes="auto"
+            alt="{{ image.title | default('') }}"
+            >
+        </picture>
+    </div>
+    {# /.responsive-bg-image #}
+{% endspaceless %}
