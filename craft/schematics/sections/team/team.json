@@ -1,0 +1,107 @@
+{
+    "fieldGroups": [
+        "Team"
+    ],
+    "sections": [
+        {
+            "name": "Team",
+            "handle": "team",
+            "type": "structure",
+            "enableVersioning": true,
+            "maxLevels": "1",
+            "siteSettings": [
+                {
+                    "hasUrls": true,
+                    "uriFormat": "team\/{slug}",
+                    "template": "team\/_entry",
+                    "enabledByDefault": true
+                }
+            ]
+        }
+    ],
+    "fields": [
+        {
+            "group": "Team",
+            "name": "Bio",
+            "handle": "teamBio",
+            "instructions": "",
+            "type": "craft\\fields\\PlainText",
+            "uiMode": "normal",
+            "code": "",
+            "multiline": "1",
+            "initialRows": "4"
+        },
+        {
+            "group": "Team",
+            "name": "Image",
+            "handle": "teamImage",
+            "instructions": "",
+            "type": "craft\\fields\\Assets",
+            "useSingleFolder": false,
+            "allowUploads": true,
+            "defaultUploadLocationSource": "volume:images",
+            "defaultUploadLocationSubpath": "",
+            "singleUploadLocationSource": "volume:images",
+            "singleUploadLocationSubpath": "",
+            "restrictFiles": "",
+            "showUnpermittedVolumes": false,
+            "showUnpermittedFiles": false,
+            "previewMode": "full",
+            "sources": [
+                "volume:images"
+            ],
+            "viewMode": "large",
+            "limit": "1",
+            "selectionLabel": "Add an Image",
+            "showSiteMenu": true,
+            "localizeRelations": false,
+            "validateRelatedElements": false,
+            "allowSelfRelations": false
+        },
+        {
+            "group": "Team",
+            "name": "Position",
+            "handle": "teamPosition",
+            "instructions": "",
+            "type": "craft\\fields\\PlainText",
+            "uiMode": "normal",
+            "code": "",
+            "multiline": "",
+            "initialRows": "4"
+        }
+    ],
+    "entryTypes": [
+        {
+            "sectionHandle": "team",
+            "name": "Default",
+            "handle": "default",
+            "hasTitleField": true,
+            "titleFormat": "",
+            "fieldLayout": {
+                "Content": [
+                    "__ui_1",
+                    "teamPosition",
+                    "teamBio",
+                    "teamImage"
+                ]
+            },
+            "fieldConfigs": {
+                "Content": {
+                    "__ui_1": {
+                        "type": "craft\\fieldlayoutelements\\EntryTitleField",
+                        "width": 100
+                    },
+                    "teamPosition": {
+                        "width": 100
+                    },
+                    "teamBio": {
+                        "width": 100
+                    },
+                    "teamImage": {
+                        "width": 100
+                    }
+                }
+            }
+        }
+    ]
+}
