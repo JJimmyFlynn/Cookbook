@@ -1,4 +1,7 @@
 {
+    "fieldGroups": [
+        "Images"
+    ],
     "volumes": [
         {
             "name": "Images",
@@ -11,7 +14,8 @@
             },
             "fieldLayout": {
                 "Content": [
-                    "__ui_1"
+                    "__ui_1",
+                    "altText"
                 ]
             },
             "fieldConfigs": {
@@ -19,9 +23,25 @@
                     "__ui_1": {
                         "type": "craft\\fieldlayoutelements\\AssetTitleField",
                         "width": 100
+                    },
+                    "altText": {
+                        "width": 100
                     }
                 }
             }
+        }
+    ],
+    "fields": [
+        {
+            "group": "Images",
+            "name": "Alt Text",
+            "handle": "altText",
+            "instructions": "Text used to describe the image to visually impaired users. Typically just one descriptive sentence.",
+            "type": "craft\\fields\\PlainText",
+            "uiMode": "normal",
+            "code": "",
+            "multiline": "",
+            "initialRows": "4"
         }
     ]
 }
