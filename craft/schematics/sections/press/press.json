@@ -1,0 +1,130 @@
+{
+    "fieldGroups": [
+        "Press"
+    ],
+    "sections": [
+        {
+            "name": "Press",
+            "handle": "press",
+            "type": "channel",
+            "enableVersioning": true,
+            "propagateEntries": true,
+            "siteSettings": [
+                {
+                    "hasUrls": true,
+                    "uriFormat": "press\/{slug}",
+                    "template": "press\/_entry",
+                    "enabledByDefault": true
+                }
+            ]
+        }
+    ],
+    "fields": [
+        {
+            "group": "Press",
+            "name": "Excerpt",
+            "handle": "pressExcerpt",
+            "instructions": "A brief excerpt or description of the article",
+            "type": "craft\\fields\\PlainText",
+            "uiMode": "normal",
+            "code": "",
+            "multiline": "1",
+            "initialRows": "4"
+        },
+        {
+            "group": "Press",
+            "name": "Image",
+            "handle": "pressImage",
+            "instructions": "Image or logo displayed along side the article in the press article list",
+            "type": "craft\\fields\\Assets",
+            "useSingleFolder": false,
+            "allowUploads": true,
+            "defaultUploadLocationSource": "volume:images",
+            "defaultUploadLocationSubpath": "",
+            "singleUploadLocationSource": "volume:images",
+            "singleUploadLocationSubpath": "",
+            "restrictFiles": "1",
+            "allowedKinds": [
+                "image"
+            ],
+            "showUnpermittedVolumes": false,
+            "showUnpermittedFiles": false,
+            "previewMode": "full",
+            "sources": [
+                "volume:images"
+            ],
+            "viewMode": "large",
+            "limit": "1",
+            "selectionLabel": "Add an Image",
+            "showSiteMenu": false,
+            "localizeRelations": false,
+            "validateRelatedElements": false,
+            "allowSelfRelations": false
+        },
+        {
+            "group": "Press",
+            "name": "Link",
+            "handle": "Presslink",
+            "instructions": "Link to the published article",
+            "type": "craft\\fields\\Url",
+            "types": [
+                "url"
+            ],
+            "maxLength": "255"
+        },
+        {
+            "group": "Press",
+            "name": "Published Date",
+            "handle": "pressPublishedDate",
+            "instructions": "When the press article was published",
+            "type": "craft\\fields\\Date",
+            "showTimeZone": false,
+            "minuteIncrement": "30",
+            "dateTime": "showDate"
+        }
+    ],
+    "entryTypes": [
+        {
+            "sectionHandle": "press",
+            "name": "Default",
+            "handle": "default",
+            "hasTitleField": true,
+            "titleFormat": "",
+            "fieldLayout": {
+                "Content": [
+                    "__ui_1",
+                    "Presslink",
+                    "pressPublishedDate",
+                    "pressExcerpt",
+                    "pressImage"
+                ]
+            },
+            "fieldConfigs": {
+                "Content": {
+                    "__ui_1": {
+                        "type": "craft\\fieldlayoutelements\\EntryTitleField",
+                        "width": 100
+                    },
+                    "Presslink": {
+                        "label": "",
+                        "instructions": "",
+                        "width": 50,
+                        "required": true
+                    },
+                    "pressPublishedDate": {
+                        "label": "",
+                        "instructions": "",
+                        "width": 50,
+                        "required": true
+                    },
+                    "pressExcerpt": {
+                        "width": 100
+                    },
+                    "pressImage": {
+                        "width": 100
+                    }
+                }
+            }
+        }
+    ]
+}
